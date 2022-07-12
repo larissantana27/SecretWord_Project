@@ -14,14 +14,15 @@ body {
     rgb(146, 159, 235) 0%,
     rgb(48, 14, 128) 100%
   );
-  color: rgb(69, 3, 155);
+  color: rgb(252, 245, 251);
+  font-weight: bold;
 }
 
 button {
   background-color: #ad60c5;
-  color: rgb(115, 26, 167);
+  color: rgb(254, 251, 255);
   padding: 0 45px;
-  border: 2px solid rgb(200, 20, 216);
+  border: 2px solid rgb(166, 43, 197);
   border-radius: 25px;
   height: 50px;
   text-transform: uppercase;
@@ -32,5 +33,5 @@ button {
 }
 
 button:hover {
-  background: #bb0adf;
+  background: #540a63;
 }
