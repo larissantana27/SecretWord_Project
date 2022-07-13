@@ -1,4 +1,4 @@
-//import { useState, useRef } from "react";
+import { useState, useRef } from "react";
 
 import "./Game.css";
 
@@ -15,8 +15,17 @@ const Game = ({
 
 }) => {
 
-  //const [letter, setLetter] = useState("");
-  //const letterInputRef = useRef(null);
+  const [letter, setLetter] = useState("");
+  const letterInputRef = useRef(null);
+
+  const handleSubmit = (e) => {
+
+    e.preventDefault();
+    verifyLetter(letter);
+    setLetter("");
+    letterInputRef.current.focus();
+  };
+
 
   return (
 
@@ -41,16 +50,14 @@ const Game = ({
       
       <div className = "wordContainer">
 
-        <span className = "letter"> a </span>
+        <span className = "letter"> {letter} </span>
 
-        {/* 
-        {letters.map((letter, i) =>
+        {letters.map((letter, i) => 
           
           guessedLetters.includes(letter) ? 
           (<span className = "letter" key = {i}> {letter} </span>): 
           (<span key = {i} className = "blankSquare"></span>)
         )}
-        */}
 
       </div>
 
@@ -60,20 +67,19 @@ const Game = ({
 
         <p> Try guessing a letter of this word: </p>
         
-        {/* onSubmit = {handleSubmit} */}
-        <form>
+        <form onSubmit = {handleSubmit}>
 
           <input
-            type="text"
-            name="letter"
-            maxLength="1"
-            //onChange={(e) => setLetter(e.target.value)}
+            type = "text"
+            name = "letter"
+            maxLength = "1"
+            onChange = {(e) => setLetter(e.target.value)}
             required
-            //value={letter}
-            //ref={letterInputRef}
+            value = {letter}
+            ref = {letterInputRef}
           />
 
-          <button> Play! </button>
+          <button> Try! </button>
 
         </form>
 
@@ -84,13 +90,10 @@ const Game = ({
       <div className = "wrongLettersContainer">
 
         <p>Letters already used:</p>
-
-        <span> a, b, c </span>
-        {/*
+      
         {wrongLetters.map((letter, i) => (
           <span key = {i}> {letter}, </span>
         ))}
-        */}
 
       </div>
 
