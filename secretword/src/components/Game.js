@@ -50,8 +50,6 @@ const Game = ({
       
       <div className = "wordContainer">
 
-        <span className = "letter"> {letter} </span>
-
         {letters.map((letter, i) => 
           
           guessedLetters.includes(letter) ? 
@@ -96,6 +94,8 @@ const Game = ({
         ))}
 
       </div>
+  
+      {/*------------------------------------------------------------------------------------*/}
 
     </div>
   );

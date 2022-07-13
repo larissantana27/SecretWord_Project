@@ -28,7 +28,7 @@ function App() {
   const [guesses, setGuesses] = useState(3);
   const [score, setScore] = useState(0);
 
-  console.log(words);
+  //console.log(words, 'words');
 
   //------------------------------------------------------------------------------------
 
@@ -36,34 +36,48 @@ function App() {
 
     const categories = Object.keys(words);
     const category = categories[Math.floor(Math.random() * Object.keys(categories).length)];
-
     const word = words[category][Math.floor(Math.random() * words[category].length)];
 
-    console.log(category, word);
+    console.log(category, word, '--------aqui--------');
     return { category, word };
 
   }, [words]);
 
   //------------------------------------------------------------------------------------
 
+  function normalizedLetter(letter) {     
+
+    letter = letter.toLowerCase();                                                         
+    letter = letter.replace(new RegExp('[ÁÀÂÃ]','gi'), 'a');
+    letter = letter.replace(new RegExp('[ÉÈÊ]','gi'), 'e');
+    letter = letter.replace(new RegExp('[ÍÌÎ]','gi'), 'i');
+    letter = letter.replace(new RegExp('[ÓÒÔÕ]','gi'), 'o');
+    letter = letter.replace(new RegExp('[ÚÙÛ]','gi'), 'u');
+    letter = letter.replace(new RegExp('[Ç]','gi'), 'c');
+
+    return letter;                 
+  }
+
   const startGame = useCallback(() => {
 
     clearLettersStates();
 
     const { category, word } = pickWordAndCategory();
-    console.log(category, word);
 
     let wordLetters = word.split("");
-    wordLetters = wordLetters.map((l) => l.toLowerCase());
-    console.log(wordLetters);
+    wordLetters = wordLetters.map((l) => normalizedLetter(l.toLowerCase()) );
+
+    console.log(wordLetters, 'wordLetters');
 
     setPickedCategory(category);
     setPickedWord(word);
     setLetters(wordLetters);
 
+    console.log(letters, 'letters');
+
     setGameStage(stages[1].name);
 
-  }, [pickWordAndCategory]);
+  }, [pickWordAndCategory, letters]);
 
   //------------------------------------------------------------------------------------
 
@@ -98,7 +112,7 @@ function App() {
     }
   };
 
-  console.log(wrongLetters);
+  console.log(wrongLetters,'wrongLetters');
 
   //------------------------------------------------------------------------------------
 
@@ -106,7 +120,7 @@ function App() {
 
     setScore(0);
     setGuesses(3);
-    setGameStage(stages[0].name);
+    setGameStage(stages[2].name);
   }
 
   //------------------------------------------------------------------------------------
@@ -134,8 +148,8 @@ function App() {
   useEffect(() => {
     const uniqueLetters = [...new Set(letters)];
 
-    console.log(uniqueLetters);
-    console.log(guessedLetters);
+    console.log(uniqueLetters, 'uniqueLetters');
+    console.log(guessedLetters, 'guessedLetters');
 
     // win condition
     if (guessedLetters.length === uniqueLetters.length) {
